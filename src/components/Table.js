@@ -92,7 +92,7 @@ const getColumns = (rootDir, execCommand) => [
     filters: [
       { text: 'Passed', value: 'passed' },
       { text: 'Failed', value: 'failed' },
-      { text: 'Pending', value: 'pending' },
+      { text: 'Skipped', value: 'pending' },
       { text: 'Todo', value: 'todo' },
       { text: 'Not Passed', value: 'noPass' },
     ],
@@ -121,8 +121,8 @@ const getColumns = (rootDir, execCommand) => [
   },
 ]
 
-const TableItem = ({ _reporterOptions, testResults, config: { rootDir }, globalExpandState, attachInfos }) =>
-  <Consumer>
+const TableItem = ({ _reporterOptions, testResults, config: { rootDir }, globalExpandState, attachInfos }) => {
+  return <Consumer>
     {
       ({ expand, toggleExpand }) =>
         <Table
@@ -131,7 +131,9 @@ const TableItem = ({ _reporterOptions, testResults, config: { rootDir }, globalE
           rowKey='testFilePath'
           rowClassName={renderRootRowClass}
           expandedRowRender={
-            ({ testResults, testFilePath }) => <DetailTable data={testResults.map(item => ({ ...item, fileAttachInfos: attachInfos[testFilePath] || {} }))} />
+            ({ testResults, testFilePath, console }) => {
+              return <DetailTable data={testResults.map(item => ({ ...item, fileAttachInfos: attachInfos[testFilePath] || {}, logs: console }))} />
+            }
           }
           expandedRowKeys={getExistKeys(expand, globalExpandState)}
           onExpand={(state, { testFilePath }) => toggleExpand({ key: testFilePath, state })}
@@ -139,5 +141,6 @@ const TableItem = ({ _reporterOptions, testResults, config: { rootDir }, globalE
           dataSource={testResults} />
     }
   </Consumer>
+}
 
 export default TableItem

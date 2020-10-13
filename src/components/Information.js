@@ -32,7 +32,7 @@ const CustomTooltip = ({ active, payload, label, rootDir }) => {
       { icon: <FileOutlined />, title: 'Name', content: relativePath },
       { icon: <CheckOutlined style={{ color: 'green' }} />, title: 'Passed', content: numPassingTests },
       { icon: <CloseOutlined style={{ color: '#ff4d4f' }} />, title: 'Failed', content: numFailingTests },
-      { icon: <Loading3QuartersOutlined style={{ color: '#faad14' }} />, title: 'Pending', content: numPendingTests },
+      { icon: <Loading3QuartersOutlined style={{ color: '#faad14' }} />, title: 'Skipped', content: numPendingTests },
     ]
 
     return (

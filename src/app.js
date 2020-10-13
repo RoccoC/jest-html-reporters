@@ -60,9 +60,9 @@ class App extends Component {
           <Content style={{ padding: '0 50px' }}>
             <HomePage />
           </Content>
-          <Footer style={{ marginTop: '50px', background: '#000' }}>
+          {/* <Footer style={{ marginTop: '50px', background: '#000' }}>
             <FooterInfo />
-          </Footer>
+          </Footer> */}
         </Layout>
       </Provider>
     )

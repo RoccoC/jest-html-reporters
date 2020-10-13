@@ -6,9 +6,9 @@ import ErrorInfoItem from './ErrorInfoItem'
 
 const { Meta } = Card
 
-function info(data, caseAttachInfos) {
+function info(data, caseAttachInfos, logs) {
   Modal.warning({
-    title: 'Case Infos',
+    title: 'Case Info',
     width: '80%',
     maskClosable: true,
     content: (
@@ -16,9 +16,26 @@ function info(data, caseAttachInfos) {
         <Col span={24}>
           <ErrorInfoItem data={data} caseAttachInfos={caseAttachInfos} />
         </Col>
+        {/* {!!logs.length && (
+          <List
+            header='Logs'
+            bordered
+            className={'ant-col-24'}
+            dataSource={logs}
+            renderItem={item => (
+              <List.Item>
+                <div style={{ flex: 1 }}>
+                  <div><label>Level: <b>{item.type}</b></label></div>
+                  <div>{item.origin}</div>
+                  <pre style={{ 'max-height': '200px', overflow: 'auto' }}>{item.message}</pre>
+                </div>
+              </List.Item>
+            )}
+          />
+        )} */}
         {!!caseAttachInfos.length && (
           <List
-            header='Attach'
+            header='Logs'
             bordered
             className={'ant-col-24'}
             dataSource={caseAttachInfos}
@@ -35,7 +52,13 @@ function info(data, caseAttachInfos) {
                       <Meta title={item.description} />
                     </Card>
                   )
-                  : (
+                  : item.description.origin ? (
+                    <div style={{ flex: 1 }}>
+                      {/* <div><label>Level: <b>{item.type}</b></label></div> */}
+                      <div>{item.description.origin}</div>
+                      <pre style={{ 'max-height': '200px', overflow: 'auto' }}>{item.description.message}</pre>
+                    </div>
+                  ) : (
                     <Card className={'ant-col-24'} bordered={false}>
                       <pre style={{ 'max-height': '200px', overflow: 'auto' }}>{ item.description }</pre>
                     </Card>
@@ -50,11 +73,11 @@ function info(data, caseAttachInfos) {
   })
 }
 
-const ErrorButton = ({ failureMessage, caseAttachInfos = [] }) => {
-  if (!failureMessage && !caseAttachInfos.length) return null
+const ErrorButton = ({ failureMessage, caseAttachInfos = [], logs = [] }) => {
+  if (!failureMessage && !caseAttachInfos.length && !logs.length) return null
   return <div
     className='error_button'
-    onClick={() => info(failureMessage, caseAttachInfos)}>
+    onClick={() => info(failureMessage, caseAttachInfos, logs)}>
     <ExclamationCircleFilled />
     Info
   </div>

@@ -46,6 +46,7 @@ module.exports = {
     // new BundleAnalyzerPlugin(),
   ],
   optimization: {
+    // minimize: false,
     minimizer: [
       new UglifyJsPlugin({
         cache: true,

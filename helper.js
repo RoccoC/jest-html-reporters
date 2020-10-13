@@ -19,6 +19,7 @@ const addAttach = async (attach, description) => {
   const fileName = generateRandomString()
   if (typeof attach === 'string') {
     const attachObject = { testPath, testName, filePath: attach, description }
+    console.log(`[jest-html-reporters] Writing attachObject to file ${dataDirPath}/${fileName}.json`)
     await fs.writeJSON(`${dataDirPath}/${fileName}.json`, attachObject)
   }
 
